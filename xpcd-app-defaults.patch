@@ -1,0 +1,14 @@
+--- xpcd-2.08/xpcd/Makefile.in~	Sat Sep  6 23:03:08 2003
++++ xpcd-2.08/xpcd/Makefile.in	Sat Sep  6 23:03:08 2003
+@@ -63,9 +63,9 @@
+ 	$(INSTALL_DATA) Xpcd-2.ad					\
+ 		$(x11_libdir)/app-defaults/Xpcd-2
+ 	for lang in $(XPCD_LANG); do					\
+-		$(MKDIR) $(x11_libdir)/$$lang/app-defaults;		\
++		$(MKDIR) $(x11_libdir)/app-defaults/$$lang;		\
+ 		$(INSTALL_DATA) Xpcd-2.$$lang.ad			\
+-			$(x11_libdir)/$$lang/app-defaults/Xpcd-2;	\
++			$(x11_libdir)/app-defaults/$$lang/Xpcd-2;	\
+ 	done
+ 	test -f xpcd-gate &&						\
+ 		$(MKDIR) $(gimpplugindir) &&				\
