@@ -137,9 +137,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} DESTDIR=$RPM_BUILD_ROOT SUID_ROOT= install
 %{__make} DESTDIR=$RPM_BUILD_ROOT install-lib -C libpcd
 
-#install -d $RPM_BUILD_ROOT%{_includedir}
-#install libpcd/pcd.h $RPM_BUILD_ROOT%{_includedir}
-
 # move X stuff to _x*dir
 install -d $RPM_BUILD_ROOT%{_xmandir}/man1
 install -d $RPM_BUILD_ROOT%{_xbindir}
