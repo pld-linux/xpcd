@@ -12,13 +12,14 @@ Group:		X11/Applications/Graphics
 Source0:	http://bytesex.org/misc/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
 Source2:	%{name}.png
-Patch0:		%{name}-gimp.patch
-Patch1:		%{name}-FHS.patch
+Patch0:		%{name}-FHS.patch
+# gimp updates from http://www.adap.org/~edsel/software/xpcd-2.08-gimp1.2.tar.gz
+Patch1:		%{name}-gimp1.2.patch
+Patch2:		%{name}-gimp.patch
 URL:		http://bytesex.org/xpcd.html
 BuildRequires:	Xaw3d-devel >= 1.3E
 BuildRequires:	autoconf
-%{!?_without_gimp:BuildRequires:	gimp-devel >= 0.99}
-%{!?_without_gimp:BuildRequires:	gimp-devel < 1.3}
+%{!?_without_gimp:BuildRequires:	gimp-devel >= 1.2}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpcd-devel >= 1.0
 BuildRequires:	libtiff-devel
@@ -76,10 +77,10 @@ przekazanie go do xpcd.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__autoconf}
-CFLAGS="%{rpmcflags} -DGIMP_ENABLE_COMPAT_CRUFT"
 %configure \
 %ifnarch %{ix86} alpha
 	    --without-svga

@@ -1,0 +1,152 @@
+diff -Nur xpcd-2.08.orig/xpcd/xpcd-gate.c xpcd-2.08-gimp1.2/xpcd/xpcd-gate.c
+--- xpcd-2.08.orig/xpcd/xpcd-gate.c	1998-12-26 21:48:03.000000000 +0100
++++ xpcd-2.08-gimp1.2/xpcd/xpcd-gate.c	2001-10-03 17:25:10.000000000 +0200
+@@ -60,10 +60,10 @@
+ /* ------------------------------------------------------------------------ */
+ 
+ static void     query(void);
+-static void     run(char *name, int nparams, GParam * param,
+-		    int *nreturn_vals, GParam ** return_vals);
++static void     run(char *name, int nparams, GimpParam * param,
++		    int *nreturn_vals, GimpParam ** return_vals);
+ 
+-GPlugInInfo     PLUG_IN_INFO =
++GimpPlugInInfo     PLUG_IN_INFO =
+ {
+     NULL,			/* init_proc */
+     NULL,			/* quit_proc */
+@@ -71,23 +71,23 @@
+     run,			/* run_proc */
+ };
+ 
+-static GParamDef load_args[] =
++static GimpParamDef load_args[] =
+ {
+-    {PARAM_INT32, "run_mode", "Interactive, non-interactive"},
+-    {PARAM_STRING, "filename", "The name of the file to load"},
+-    {PARAM_STRING, "raw_filename", "The name of the file to load"},
++    {GIMP_PDB_INT32, "run_mode", "Interactive, non-interactive"},
++    {GIMP_PDB_STRING, "filename", "The name of the file to load"},
++    {GIMP_PDB_STRING, "raw_filename", "The name of the file to load"},
+ };
+ static int      nload_args = sizeof(load_args) / sizeof(load_args[0]);
+ 
+-static GParamDef load_ret[] =
++static GimpParamDef load_ret[] =
+ {
+-    {PARAM_IMAGE, "image", "Output image"},
++    {GIMP_PDB_IMAGE, "image", "Output image"},
+ };
+ static int      nload_ret = sizeof(load_ret) / sizeof(load_ret[0]);
+ 
+-static GParamDef gate_args[] =
++static GimpParamDef gate_args[] =
+ {
+-    {PARAM_INT32, "run_mode", "Interactive, non-interactive"},
++    {GIMP_PDB_INT32, "run_mode", "Interactive, non-interactive"},
+ };
+ static int      ngate_args = sizeof(gate_args) / sizeof(gate_args[0]);
+ 
+@@ -105,7 +105,7 @@
+ 			   "1997",
+ 			   "<Load>/PhotoCD",
+ 			   NULL,
+-			   PROC_PLUG_IN,
++			   GIMP_PLUGIN,
+ 			   nload_args, nload_ret,
+ 			   load_args, load_ret);
+ 
+@@ -122,7 +122,7 @@
+ 			   "1997",
+ 			   "<Toolbox>/Xtns/xpcd-gate",
+ 			   NULL,
+-			   PROC_EXTENSION,
++			   GIMP_EXTENSION,
+ 			   ngate_args, 0,
+ 			   gate_args, NULL);
+ }
+@@ -208,8 +208,8 @@
+ 
+     gint32          image_ID;
+     gint32          layer_ID;
+-    GDrawable      *drawable;
+-    GPixelRgn       pixel_rgn;
++    GimpDrawable      *drawable;
++    GimpPixelRgn       pixel_rgn;
+     guchar         *buf;
+     int             tile_height;
+ };
+@@ -297,10 +297,10 @@
+     img->buf = g_new(guchar, img->buf_size);
+ 
+     img->image_ID = gimp_image_new
+-	(img->width, img->height, (img->gray ? GRAY : RGB));
++	(img->width, img->height, (img->gray ? GIMP_GRAY : GIMP_RGB));
+     img->layer_ID = gimp_layer_new
+ 	(img->image_ID, "PhotoCD", img->width, img->height,
+-	 (img->gray ? GRAY_IMAGE : RGB_IMAGE), 100, NORMAL_MODE);
++	 (img->gray ? GIMP_GRAY_IMAGE : GIMP_RGB_IMAGE), 100, GIMP_NORMAL_MODE);
+     gimp_image_add_layer(img->image_ID, img->layer_ID, 0);
+     img->drawable = gimp_drawable_get(img->layer_ID);
+     gimp_pixel_rgn_init(&img->pixel_rgn, img->drawable, 0, 0,
+@@ -322,11 +322,11 @@
+ /* ------------------------------------------------------------------------ */
+ 
+ static void
+-run(char *name, int nparams, GParam * param,
+-    int *nreturn_vals, GParam ** return_vals)
++run(char *name, int nparams, GimpParam * param,
++    int *nreturn_vals, GimpParam ** return_vals)
+ {
+-    static GParam   values[2];
+-    GRunModeType    run_mode;
++    static GimpParam   values[2];
++    GimpRunModeType    run_mode;
+ 
+     Display        *dpy;
+     Window          win;
+@@ -337,8 +337,8 @@
+ 
+     *nreturn_vals = 1;
+     *return_vals = values;
+-    values[0].type = PARAM_STATUS;
+-    values[0].data.d_status = STATUS_CALLING_ERROR;
++    values[0].type = GIMP_PDB_STATUS;
++    values[0].data.d_status = GIMP_PDB_CALLING_ERROR;
+ 
+     if (strcmp(name, XPCD_LOAD_PROC) == 0) {
+ 	/* pass filename to xpcd */
+@@ -346,7 +346,7 @@
+ 
+ 	if (NULL == (dpy = XOpenDisplay(NULL))) {
+ 	    fprintf(stderr, XPCD_LOAD_PROC ": can't open display\n");
+-	    values[0].data.d_status = STATUS_EXECUTION_ERROR;
++	    values[0].data.d_status = GIMP_PDB_EXECUTION_ERROR;
+ 	    return;
+ 	}
+ 	ipc_init_atoms(dpy);
+@@ -356,13 +356,13 @@
+ 	}
+ 	if (0 == (win = ipc_find_window(dpy, xpcd_ver))) {
+ 	    fprintf(stderr, XPCD_LOAD_PROC ": no running xpcd found\n");
+-	    values[0].data.d_status = STATUS_EXECUTION_ERROR;
++	    values[0].data.d_status = GIMP_PDB_EXECUTION_ERROR;
+ 	    return;
+ 	}
+ 	ipc_pass_cmd(dpy, win, IPC_PASS_GIMP, 1, &param[1].data.d_string);
+ 	XFlush(dpy);
+ 	XCloseDisplay(dpy);
+-	values[0].data.d_status = STATUS_SUCCESS;
++	values[0].data.d_status = GIMP_PDB_SUCCESS;
+ 
+     } else if (strcmp(name, XPCD_EXTENSION) == 0) {
+ 	/* the hard part: create a socket and handle even more than one
+@@ -405,7 +405,7 @@
+ 		}
+ 	    }
+ 	}
+-	values[0].data.d_status = STATUS_SUCCESS;
++	values[0].data.d_status = GIMP_PDB_SUCCESS;
+ 	return;
+     }
+ }
