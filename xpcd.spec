@@ -2,7 +2,7 @@ Summary:	PhotoCD tool collection
 Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
 Name:		xpcd
 Version:	2.08
-Release:	4
+Release:	5
 License:	GPL
 Group:		X11/Applications/Graphics
 Source0:	http://www.in-berlin.de/User/kraxel/dl/%{name}-%{version}.tar.gz
