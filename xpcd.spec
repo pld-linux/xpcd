@@ -2,10 +2,12 @@ Summary:	PhotoCD tool collection
 Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
 Name:		xpcd
 Version:	2.08
-Release:	6
+Release:	7
 License:	GPL
 Group:		X11/Applications/Graphics
 Source0:	http://www.in-berlin.de/User/kraxel/dl/%{name}-%{version}.tar.gz
+Source1:	%{name}.desktop
+Source2:	%{name}.png
 Patch0:		%{name}-gimp.patch
 Patch1:		%{name}-FHS.patch
 Patch2:		%{name}-shared.patch
@@ -121,7 +123,8 @@ CFLAGS="%{rpmcflags} -DGIMP_ENABLE_COMPAT_CRUFT"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_xbindir},%{_xmandir}/man1}
+install -d $RPM_BUILD_ROOT{%{_xbindir},%{_xmandir}/man1} \
+	$RPM_BUILD_ROOT{%{_applnkdir}/Graphics,%{_pixmapsdir}}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT SUID_ROOT= install
 %{__make} DESTDIR=$RPM_BUILD_ROOT install-lib -C libpcd
@@ -129,6 +132,9 @@ install -d $RPM_BUILD_ROOT{%{_xbindir},%{_xmandir}/man1}
 # move X stuff to _x*dir
 mv -f $RPM_BUILD_ROOT%{_mandir}/man1/xpcd.1 $RPM_BUILD_ROOT%{_xmandir}/man1
 mv -f $RPM_BUILD_ROOT%{_bindir}/xpcd $RPM_BUILD_ROOT%{_xbindir}
+
+install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Graphics
+install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -141,6 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc README bench
 %attr(755,root,root) %{_xbindir}/xpcd
 %attr(755,root,root) %{_bindir}/pcdtoppm
+%{_applnkdir}/Graphics/*
+%{_pixmapsdir}/*
 %{_xmandir}/man1/xpcd.1*
 %{_mandir}/man1/pcdtoppm.1*
 %dir %{_xprefix}/lib/X11/xpcd
