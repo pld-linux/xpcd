@@ -3,9 +3,6 @@
 %bcond_without	gimp	# without xpcd-gate plugin (not ready for gimp 1.3)
 %bcond_without	svga	# don't build svgalib viewer
 #
-%ifnarch %{ix86} alpha
-%undefine	with_svga
-%endif
 Summary:	PhotoCD tool collection
 Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
 Name:		xpcd
@@ -81,7 +78,7 @@ do xpcd.
 %build
 %{__autoconf}
 %configure \
-	    %{!?with_svga:--without-svga}
+	%{!?with_svga:--without-svga}
 
 %{__make} \
 	SUBDIRS="xpcd test"
