@@ -1,5 +1,5 @@
---- xpcd-2.08-gimp1.2/configure.in.orig	1999-10-17 13:27:25.000000000 +0200
-+++ xpcd-2.08-gimp1.2/configure.in	2003-05-11 11:43:25.000000000 +0200
+--- xpcd-2.09/configure.ac.orig	1999-10-17 13:27:25.000000000 +0200
++++ xpcd-2.09/configure.ac	2003-05-11 11:43:25.000000000 +0200
 @@ -89,17 +89,10 @@
  dnl    TEST_PROGS="$TEST_PROGS plug-0.54"
  dnl  fi
@@ -21,13 +21,13 @@
    fi
  fi
  
---- xpcd-2.08-gimp1.2/xpcd/Makefile.in.orig	1998-10-11 20:47:50.000000000 +0200
-+++ xpcd-2.08-gimp1.2/xpcd/Makefile.in	2003-05-11 11:38:26.000000000 +0200
+--- xpcd-2.09/xpcd/Makefile.in.orig	1998-10-11 20:47:50.000000000 +0200
++++ xpcd-2.09/xpcd/Makefile.in	2003-05-11 11:38:26.000000000 +0200
 @@ -87,10 +87,10 @@
  # gimp plugin (0.99)
  
  xpcd-gate.o: xpcd-gate.c
--	$(CC) $(CFLAGS) `gtk-config --cflags` -c -o $@ $<
+-	$(CC) $(CFLAGS) `glib-config --cflags` -c -o $@ $<
 +	$(CC) $(CFLAGS) `gimptool --cflags` -c -o $@ $<
  
  xpcd-gate: xpcd-gate.o ipc.o
@@ -51,7 +51,7 @@
      int *nreturn_vals, GimpParam ** return_vals)
  {
      static GimpParam   values[2];
-+#if (GIMP_MAJOR_VERSION >= 1) && (GIMP_MINOR_VERSION >= 3)
++#if (GIMP_MAJOR_VERSION > 1) || ((GIMP_MAJOR_VERSION == 1) && (GIMP_MINOR_VERSION >= 3))
 +    GimpRunMode        run_mode;
 +#else
      GimpRunModeType    run_mode;
