@@ -1,0 +1,30 @@
+--- xpcd-2.08/xpcd/xpcd.h.orig	1998-12-30 21:20:13.000000000 +0100
++++ xpcd-2.08/xpcd/xpcd.h	2003-08-18 22:44:32.368033232 +0200
+@@ -1,4 +1,4 @@
+-#define XPCD_VERSION     "xpcd 2.07"
++#define XPCD_VERSION     "xpcd 2.08"
+ 
+ #define max(x,y)         (((x) < (y)) ? (y) : (x))
+ #define min(x,y)         (((x) > (y)) ? (y) : (x))
+--- xpcd-2.08/xpcd/Xpcd-common.orig	1998-12-30 21:19:40.000000000 +0100
++++ xpcd-2.08/xpcd/Xpcd-common	2003-08-18 22:45:16.504323496 +0200
+@@ -80,7 +80,7 @@
+ 
+ Xpcd-2.str_about_title:		About
+ Xpcd-2.str_about_label:							\
+-This is xpcd 2.07, a program for reading PhotoCD images.		\n\
++This is xpcd 2.08, a program for reading PhotoCD images.		\n\
+ Copyright (C) 1997 Gerd Knorr <kraxel@goldbach.in-berlin.de>			\n\
+ 									\n\
+ This program is free software; you can redistribute it and/or modify	\n\
+--- xpcd-2.08/xpcd/app-defaults.h.orig	1998-10-10 22:39:48.000000000 +0200
++++ xpcd-2.08/xpcd/app-defaults.h	2003-08-18 22:45:40.000751496 +0200
+@@ -199,7 +199,7 @@
+ "Xpcd-2.str_no_help: Sorry, no help text available.",
+ "Xpcd-2.str_about_title: About",
+ "Xpcd-2.str_about_label: "
+-"This is xpcd 2.0 beta5 \\n"
++"This is xpcd 2.08 \\n"
+ "(c) 1997 Gerd Knorr <kraxel@goldbach.in-berlin.de>",
+ "xpcd.help: "
+ "Help is (nearly) everywhere available by \\n"

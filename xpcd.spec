@@ -6,7 +6,7 @@ Summary:	PhotoCD tool collection
 Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
 Name:		xpcd
 Version:	2.08
-Release:	9
+Release:	10
 License:	GPL
 Group:		X11/Applications/Graphics
 Source0:	http://bytesex.org/misc/%{name}-%{version}.tar.gz
@@ -17,6 +17,8 @@ Patch0:		%{name}-FHS.patch
 # gimp updates from http://www.adap.org/~edsel/software/xpcd-2.08-gimp1.2.tar.gz
 Patch1:		%{name}-gimp1.2.patch
 Patch2:		%{name}-gimp.patch
+Patch3:		%{name}-version.patch
+Patch4:		%{name}-env-overflow.patch
 URL:		http://bytesex.org/xpcd.html
 BuildRequires:	Xaw3d-devel >= 1.3E
 BuildRequires:	autoconf
@@ -79,6 +81,8 @@ przekazanie go do xpcd.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
 %{__autoconf}
