@@ -1,0 +1,20 @@
+diff -Nur xpcd-2.08.orig/Make.config.in xpcd-2.08/Make.config.in
+--- xpcd-2.08.orig/Make.config.in	Sun Oct 17 13:42:55 1999
++++ xpcd-2.08/Make.config.in	Fri Jan  5 01:53:56 2001
+@@ -1,11 +1,11 @@
+ DESTDIR=
+ prefix=$(DESTDIR)@prefix@
+-exec_prefix=$(prefix)
++exec_prefix=$(DESTDIR)@exec_prefix@
+ 
+-bindir=$(exec_prefix)/bin
+-mandir=$(prefix)/man
+-incdir=$(prefix)/include
+-libdir=$(prefix)/lib
++bindir=$(DESTDIR)@bindir@
++mandir=$(DESTDIR)@mandir@
++incdir=$(DESTDIR)@includedir@
++libdir=$(DESTDIR)@libdir@
+ 
+ x11_libdir=$(DESTDIR)@x_libraries@/X11
+ x11_incdir=$(DESTDIR)@x_includes@/X11
