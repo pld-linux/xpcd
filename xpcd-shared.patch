@@ -1,0 +1,45 @@
+diff -Nur xpcd-2.08.o/libpcd/Makefile.in xpcd-2.08/libpcd/Makefile.in
+--- xpcd-2.08.o/libpcd/Makefile.in	Sat Oct 10 22:39:47 1998
++++ xpcd-2.08/libpcd/Makefile.in	Fri Jan  5 13:56:15 2001
+@@ -17,19 +17,24 @@
+ 	$(srcdir)/huff.c \
+ 	$(srcdir)/inter.c
+ 
+-OBJS=file.o yuv2rgb.o huff.o inter.o
++OBJS=file.lo yuv2rgb.lo huff.lo inter.lo
++
++%.lo: %.c
++	libtool $(CC) $(CFLAGS) -c $<
+ 
+ all: libpcd.a
+ 
+ libpcd.a: $(OBJS)
+-	rm -f $@
+-	ar rc $@ $(OBJS)
+-	ranlib $@
++	libtool $(CC) $(LDFLAGS) -o libpcd.la $(OBJS) -rpath @libdir@
++	mv -f .libs/libpcd.{so*,a} .
+ 
+ install-lib:
+ 	$(MKDIR) $(libdir)
+ 	$(MKDIR) $(incdir)
+ 	$(INSTALL_DATA) libpcd.a $(libdir)
++	$(INSTALL_DATA) libpcd.so.* $(libdir)
++	cp -df libpcd.so $(libdir)
++	$(INSTALL_DATA) libpcd.la $(libdir)
+ 	$(INSTALL_DATA) $(srcdir)/pcd.h $(incdir)
+ 
+ install:
+@@ -38,10 +42,10 @@
+ 	$(DEPEND) -- $(CFLAGS) -- $(SRCS)
+ 
+ clean:
+-	-rm -f *~ *.bak *.o
++	-rm -f *~ *.bak *.o *.lo
+ 
+ realclean:
+-	-rm -f libpcd.a Makefile
++	-rm -f libpcd.a .libs *.la *.so Makefile
+ 
+ #-------------------------------------------------------------------------
+ # DO NOT DELETE THIS LINE -- make depend depends on it.
