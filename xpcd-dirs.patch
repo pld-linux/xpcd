@@ -1,0 +1,64 @@
+diff -Nur xpcd-2.09.orig/Make.config.in xpcd-2.09/Make.config.in
+--- xpcd-2.09.orig/Make.config.in	1999-10-17 13:42:55.000000000 +0200
++++ xpcd-2.09/Make.config.in	2004-04-12 16:10:26.116214248 +0200
+@@ -3,12 +3,12 @@
+ exec_prefix=$(prefix)
+ 
+ bindir=$(exec_prefix)/bin
+-mandir=$(prefix)/man
++mandir=$(prefix)/share/man
+ incdir=$(prefix)/include
+ libdir=$(prefix)/lib
+-
+-x11_libdir=$(DESTDIR)@x_libraries@/X11
+-x11_incdir=$(DESTDIR)@x_includes@/X11
++datadir=$(prefix)/share
++pixmapsdir=$(DESTDIR)/usr/share/pixmaps
++appdefsdir=$(DESTDIR)/usr/X11R6/lib/X11/app-defaults
+ gimpplugindir=$(DESTDIR)@GIMP_PLUGIN_DIR@
+ 
+ CC=@CC@
+diff -Nur xpcd-2.09.orig/xpcd/Makefile.in xpcd-2.09/xpcd/Makefile.in
+--- xpcd-2.09.orig/xpcd/Makefile.in	2003-07-21 14:59:57.000000000 +0200
++++ xpcd-2.09/xpcd/Makefile.in	2004-04-12 16:12:06.565943568 +0200
+@@ -5,7 +5,7 @@
+ include ../Make.config
+ 
+ CFLAGS=@CFLAGS@ -Wall -I.. @X_CFLAGS@ \
+-	-DSYSRC="\"$(x11_libdir)/xpcd/system.xpcdrc\""
++	-DSYSRC="\"$(datadir)/xpcd/system.xpcdrc\""
+ LDLIBS=-lpcd -lm \
+ 	@X_LIBS@ @X_TOOLKIT@ -lXt @X_PRE_LIBS@ @MIT_SHMEM@ \
+ 	-lXmu -lX11 @X_EXTRA_LIBS@
+@@ -50,22 +50,22 @@
+ install:
+ 	$(MKDIR) $(bindir)
+ 	$(MKDIR) $(mandir)/man1
+-	$(MKDIR) $(x11_libdir)/xpcd
+-	$(MKDIR) $(x11_libdir)/app-defaults
+-	$(MKDIR) $(x11_incdir)/pixmaps
++	$(MKDIR) $(datadir)/xpcd
++	$(MKDIR) $(appdefsdir)
++	$(MKDIR) $(pixmapsdir)
+ 	$(INSTALL_PROGRAM) xpcd $(bindir)/xpcd
+ 	$(INSTALL_DATA) $(srcdir)/xpcd.man $(mandir)/man1/xpcd.1
+-	$(INSTALL_DATA) system.xpcdrc $(x11_libdir)/xpcd/system.xpcdrc
++	$(INSTALL_DATA) system.xpcdrc $(datadir)/xpcd/system.xpcdrc
+ 	$(INSTALL_DATA) $(srcdir)/xpcd-color.xpm			\
+-		$(x11_incdir)/pixmaps/xpcd-color.xpm
++		$(pixmapsdir)/xpcd-color.xpm
+ 	$(INSTALL_DATA) $(srcdir)/xpcd-gray.xpm				\
+-		$(x11_incdir)/pixmaps/xpcd-gray.xpm
++		$(pixmapsdir)/xpcd-gray.xpm
+ 	$(INSTALL_DATA) Xpcd-2.ad					\
+-		$(x11_libdir)/app-defaults/Xpcd-2
++		$(appdefsdir)/Xpcd-2
+ 	for lang in $(XPCD_LANG); do					\
+-		$(MKDIR) $(x11_libdir)/$$lang/app-defaults;		\
++		$(MKDIR) $(appdefsdir)/$$lang;		\
+ 		$(INSTALL_DATA) Xpcd-2.$$lang.ad			\
+-			$(x11_libdir)/$$lang/app-defaults/Xpcd-2;	\
++			$(appdefsdir)/$$lang/Xpcd-2;	\
+ 	done
+ 	test -f xpcd-gate &&						\
+ 		$(MKDIR) $(gimpplugindir) &&				\
