@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _without_gimp	- without xpcd-gate plugin (not ready for gimp 1.3)
+%bcond_without	gimp	# without xpcd-gate plugin (not ready for gimp 1.3)
 #
 Summary:	PhotoCD tool collection
 Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
@@ -23,7 +23,7 @@ Patch5:		%{name}-app-defaults.patch
 URL:		http://bytesex.org/xpcd.html
 BuildRequires:	Xaw3d-devel >= 1.3E
 BuildRequires:	autoconf
-%{!?_without_gimp:BuildRequires:	gimp-devel >= 1.2}
+%{?with_gimp:BuildRequires:	gimp-devel >= 1.2}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpcd-devel >= 1.0.1
 BuildRequires:	libtiff-devel
@@ -33,7 +33,7 @@ BuildRequires:	svgalib-devel
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%if 0%{!?_without_gimp:1}
+%if %{with gimp}
 %define		gimpplugindir	%(gimptool --gimpplugindir)/plug-ins
 %endif
 # X11 resources must be installed with X11R6 prefix
@@ -135,7 +135,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_mandir}/man1/pcdview.1*
 %endif
 
-%if 0%{!?_without_gimp:1}
+%if %{with gimp}
 %files gimp
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gimpplugindir}/xpcd-gate
