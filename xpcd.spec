@@ -8,9 +8,9 @@ Group:		X11/Applications/Graphics
 Group(de):	X11/Applikationen/Grafik
 Group(pl):	X11/Aplikacje/Grafika
 Source0:	http://www.in-berlin.de/User/kraxel/dl/%{name}-%{version}.tar.gz
-Patch0:		xpcd-gimp.patch
-Patch1:		xpcd-FHS.patch
-Patch2:		xpcd-shared.patch
+Patch0:		%{name}-gimp.patch
+Patch1:		%{name}-FHS.patch
+Patch2:		%{name}-shared.patch
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	autoconf
 BuildRequires:	libjpeg-devel
@@ -34,9 +34,9 @@ is pcdtoppm, this is a command line based PhotoCD-to-PPM/JPEG
 converter.
 
 %description -l pl
-Zestaw narzêdzi do obróbki formatu PhotoCD. G³ówna aplikacja (xpcd) jest
-programem pod X do dekodowania i ogl±dania obrazków PhotoCD. pcdtoppm jest
-konwerterem na ppm i jpg dzia³aj±cym z linii poleceñ.
+Zestaw narzêdzi do obróbki formatu PhotoCD. G³ówna aplikacja (xpcd)
+jest programem pod X do dekodowania i ogl±dania obrazków PhotoCD.
+pcdtoppm jest konwerterem na ppm i jpg dzia³aj±cym z linii poleceñ.
 
 %ifarch %ix86
 
@@ -80,6 +80,7 @@ Summary:	PhotoCD shared library
 Summary(pl):	Biblioteka dzielona do obs³ugi PhotoCD
 Group:		Libraries
 Group(de):	Libraries
+Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
 
@@ -127,7 +128,7 @@ Statyczna wersja biblioteki libpcd.
 
 %build
 autoconf
-CFLAGS="%{?debug:-g -O0}%{!?debug:$RPM_OPT_FLAGS} -DGIMP_ENABLE_COMPAT_CRUFT"
+CFLAGS="%{rpmcflags} -DGIMP_ENABLE_COMPAT_CRUFT"
 %configure
 %{__make}
 
@@ -146,8 +147,8 @@ gzip -9nf README bench
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -n libpcd -p	/sbin/ldconfig
-%postun -n libpcd -p	/sbin/ldconfig
+%post	-n libpcd -p /sbin/ldconfig
+%postun	-n libpcd -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
