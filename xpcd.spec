@@ -54,8 +54,8 @@ svgalib viewer for PhotoCD images.
 Przegl±darka obrazków PhotoCD korzystaj±ca z svgalib.
 
 %package gimp
-Summary:	GIMP plugin, makes xpcd and gimp work hand in hand.
-Summary(pl):	Wtyczka do GIMP-a dodaj±ca obs³ugê xpcd.
+Summary:	GIMP plugin, makes xpcd and gimp work hand in hand
+Summary(pl):	Wtyczka do GIMP-a dodaj±ca obs³ugê xpcd
 Group:		X11/Applications/Graphics
 Requires:	xpcd = %{version}
 Requires:	libpcd = %{version}
