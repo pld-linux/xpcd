@@ -1,7 +1,7 @@
 Summary:	PhotoCD tool collection
 Name:		xpcd
 Version:	2.08
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Graphics
 Group(de):	X11/Applikationen/Grafik
@@ -98,7 +98,6 @@ Static version of libpcd.
 %patch2 -p1
 
 %build
-#export CFLAGS
 autoconf
 CFLAGS="%{?debug:-g -O0}%{!?debug:$RPM_OPT_FLAGS} -DGIMP_ENABLE_COMPAT_CRUFT"
 %configure
