@@ -51,4 +51,5 @@ Exec=xpcd
 Terminal=false
 Icon=xpcd.png
 Type=Application
+Categories=Graphics;Viewer;
 # vi: encoding=utf-8
