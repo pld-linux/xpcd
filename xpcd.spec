@@ -2,7 +2,7 @@ Summary:	PhotoCD tool collection
 Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
 Name:		xpcd
 Version:	2.08
-Release:	5
+Release:	6
 License:	GPL
 Group:		X11/Applications/Graphics
 Source0:	http://www.in-berlin.de/User/kraxel/dl/%{name}-%{version}.tar.gz
@@ -150,7 +150,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_xprefix}/include/X11/pixmaps/xpcd-color.xpm
 %{_xprefix}/include/X11/pixmaps/xpcd-gray.xpm
 
-%ifarch %ix86 alpha
+%ifarch %{ix86} alpha
 %files svga
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pcdview
