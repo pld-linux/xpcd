@@ -2,7 +2,7 @@ Summary:	PhotoCD tool collection
 Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
 Name:		xpcd
 Version:	2.08
-Release:	3
+Release:	4
 License:	GPL
 Group:		X11/Applications/Graphics
 Group(de):	X11/Applikationen/Grafik
@@ -82,7 +82,6 @@ Group:		Libraries
 Group(de):	Libraries
 Group(fr):	Librairies
 Group(pl):	Biblioteki
-Prereq:		/sbin/ldconfig
 
 %description -n libpcd
 This is PhotoCD shared library.
@@ -138,8 +137,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} DESTDIR=$RPM_BUILD_ROOT install-lib -C libpcd
 
 # move X stuff to _x*dir
-install -d $RPM_BUILD_ROOT%{_xmandir}/man1
-install -d $RPM_BUILD_ROOT%{_xbindir}
+install -d $RPM_BUILD_ROOT{%{_xbindir},%{_xmandir}/man1}
 mv -f $RPM_BUILD_ROOT%{_mandir}/man1/xpcd.1 $RPM_BUILD_ROOT%{_xmandir}/man1
 mv -f $RPM_BUILD_ROOT%{_bindir}/xpcd $RPM_BUILD_ROOT%{_xbindir}
 
@@ -184,7 +182,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n libpcd-devel
 %defattr(644,root,root,755)
 %{_libdir}/libpcd.so
-%{_libdir}/libpcd.la
+%attr(755,root,root) %{_libdir}/libpcd.la
 %attr(644,root,root) %{_includedir}/pcd.h
 %doc libpcd/README.html
 
