@@ -115,7 +115,8 @@ CFLAGS="%{rpmcflags} -DGIMP_ENABLE_COMPAT_CRUFT"
 %configure \
 %ifnarch %{ix86} alpha
 	    --without-svga
-%endif 
+%endif
+
 %{__make}
 
 %install
