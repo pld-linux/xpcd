@@ -112,7 +112,10 @@ Statyczna wersja biblioteki libpcd.
 %build
 %{__autoconf}
 CFLAGS="%{rpmcflags} -DGIMP_ENABLE_COMPAT_CRUFT"
-%configure
+%configure \
+%ifnarch %{ix86} alpha
+	    --without-svga
+%endif 
 %{__make}
 
 %install
