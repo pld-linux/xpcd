@@ -114,7 +114,7 @@ Statyczna wersja biblioteki libpcd.
 %patch2 -p1
 
 %build
-autoconf
+%{__autoconf}
 CFLAGS="%{rpmcflags} -DGIMP_ENABLE_COMPAT_CRUFT"
 %configure
 %{__make}
