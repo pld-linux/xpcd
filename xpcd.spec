@@ -23,7 +23,7 @@ Patch5:		%{name}-app-defaults.patch
 URL:		http://bytesex.org/xpcd.html
 BuildRequires:	Xaw3d-devel >= 1.3E
 BuildRequires:	autoconf
-%{?with_gimp:BuildRequires:	gimp-devel >= 1.2}
+%{?with_gimp:BuildRequires:	gimp-devel >= 1:1.2}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpcd-devel >= 1.0.1
 BuildRequires:	libtiff-devel
