@@ -39,8 +39,6 @@ Zestaw narzêdzi do obróbki formatu PhotoCD. G³ówna aplikacja (xpcd)
 jest programem pod X do dekodowania i ogl±dania obrazków PhotoCD.
 pcdtoppm jest konwerterem na ppm i jpg dzia³aj±cym z linii poleceñ.
 
-%ifarch %{ix86} alpha
-
 %package svga
 Summary:	svgalib viewer for PhotoCD images
 Summary(pl):	Przegl±darka PhotoCD korzystaj±ca z svgalib
@@ -52,8 +50,6 @@ svgalib viewer for PhotoCD images.
 
 %description svga -l pl
 Przegl±darka obrazków PhotoCD korzystaj±ca z svgalib.
-
-%endif
 
 %package gimp
 Summary:	GIMP plugin, makes xpcd and gimp work hand in hand.
@@ -121,15 +117,14 @@ CFLAGS="%{rpmcflags} -DGIMP_ENABLE_COMPAT_CRUFT"
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_xbindir},%{_xmandir}/man1}
+
 %{__make} DESTDIR=$RPM_BUILD_ROOT SUID_ROOT= install
 %{__make} DESTDIR=$RPM_BUILD_ROOT install-lib -C libpcd
 
 # move X stuff to _x*dir
-install -d $RPM_BUILD_ROOT{%{_xbindir},%{_xmandir}/man1}
 mv -f $RPM_BUILD_ROOT%{_mandir}/man1/xpcd.1 $RPM_BUILD_ROOT%{_xmandir}/man1
 mv -f $RPM_BUILD_ROOT%{_bindir}/xpcd $RPM_BUILD_ROOT%{_xbindir}
-
-gzip -9nf README bench
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -139,6 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc README bench
 %attr(755,root,root) %{_xbindir}/xpcd
 %attr(755,root,root) %{_bindir}/pcdtoppm
 %{_xmandir}/man1/xpcd.1*
@@ -150,7 +146,6 @@ rm -rf $RPM_BUILD_ROOT
 %lang(da) %{_xprefix}/lib/X11/da/app-defaults/Xpcd-2
 %{_xprefix}/include/X11/pixmaps/xpcd-color.xpm
 %{_xprefix}/include/X11/pixmaps/xpcd-gray.xpm
-%doc *.gz
 
 %ifarch %ix86 alpha
 %files svga
