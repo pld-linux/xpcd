@@ -100,7 +100,7 @@ Static version of libpcd.
 %build
 #export CFLAGS
 autoconf
-CFLAGS="%{?debug:-g -O}%{!?debug:$RPM_OPT_FLAGS} -DGIMP_ENABLE_COMPAT_CRUFT"
+CFLAGS="%{?debug:-g -O0}%{!?debug:$RPM_OPT_FLAGS} -DGIMP_ENABLE_COMPAT_CRUFT"
 %configure
 %{__make}
 
