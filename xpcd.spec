@@ -1,7 +1,8 @@
 Summary:	PhotoCD tool collection
+Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
 Name:		xpcd
 Version:	2.08
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications/Graphics
 Group(de):	X11/Applikationen/Grafik
@@ -17,7 +18,7 @@ BuildRequires:	libtiff-devel
 BuildRequires:	svgalib-devel
 BuildRequires:	Xaw3d-devel
 BuildRequires:	gimp-devel >= 0.99
-Requires:	libpcd
+Requires:	libpcd = %{version}
 
 %define		_xprefix	/usr/X11R6
 %define		_xbindir	%{_xprefix}/bin
@@ -32,34 +33,51 @@ comfortable, X11-based PhotoCD decoding/viewing program. Also included
 is pcdtoppm, this is a command line based PhotoCD-to-PPM/JPEG
 converter.
 
+%description -l pl
+Zestaw narzêdzi do obróbki formatu PhotoCD. G³ówna aplikacja (xpcd) jest
+programem pod X do dekodowania i ogl±dania obrazków PhotoCD. pcdtoppm jest
+konwerterem na ppm i jpg dzia³aj±cym z linii poleceñ.
+
 %ifarch %ix86
 
 %package svga
+Summary:	svgalib viewer for PhotoCD images
+Summary(pl):	Przegl±darka PhotoCD korzystaj±ca z svgalib
 Group:		Applications/Graphics
 Group(de):	Applikationen/Grafik
 Group(pl):	Aplikacje/Grafika
-Summary:	svgalib viewer for PhotoCD images
-Requires:	libpcd
+Requires:	libpcd = %{version}
 
 %description svga
-svgalib viewer for PhotoCD images
+svgalib viewer for PhotoCD images.
+
+%description svga -l pl
+Przegl±darka obrazków PhotoCD korzystaj±ca z svgalib.
 
 %endif
 
 %package gimp
-Summary:	GIMP 0.99 plugin, makes xpcd and gimp work hand in hand.
+Summary:	GIMP plugin, makes xpcd and gimp work hand in hand.
+Summary(pl):	Wtyczka do GIMP-a dodaj±ca obs³ugê xpcd.
 Group:		X11/Applications/Graphics
 Group(de):	X11/Applikationen/Grafik
 Group(pl):	X11/Aplikacje/Grafika
-Requires:	xpcd >= 2
-Requires:	libpcd
+Requires:	xpcd = %{version}
+Requires:	libpcd = %{version}
+
 %description gimp
 This is a GIMP 0.99 plugin, it allows xpcd to load images directly
 into The GIMP. If you'll open a PhotoCD file within gimp, it will be
 passed to xpcd.
 
+%description gimp -l pl
+Wtyczka do GIMP-a >= 0.99, pozwalaj±ca wczytywaæ obrazki PhotoCD
+bezpo¶rednio do GIMP-a. Otworzenie GIMP-em pliku PhotoCD spowoduje
+przekazanie go do xpcd.
+
 %package -n libpcd
-Summary:	PCD shared library
+Summary:	PhotoCD shared library
+Summary(pl):	Biblioteka dzielona do obs³ugi PhotoCD
 Group:		Libraries
 Group(de):	Libraries
 Group(fr):	Librairies
@@ -67,10 +85,14 @@ Group(pl):	Biblioteki
 Prereq:		/sbin/ldconfig
 
 %description -n libpcd
-This is PCD shared library.
+This is PhotoCD shared library.
+
+%description -n libpcd -l pl
+Biblioteka dzielona do obs³ugi PhotoCD.
 
 %package -n libpcd-devel
 Summary:	libpcd header files
+Summary(pl):	Pliki nag³ówkowe do libpcd
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
@@ -80,8 +102,12 @@ Requires:	libpcd = %{version}
 %description -n libpcd-devel
 libpcd header file.
 
+%description -n libpcd-devel -l pl
+Pliki nag³ówkowe do biblioteki libpcd.
+
 %package -n libpcd-static
 Summary:	libpcd static library
+Summary(pl):	Biblioteka statyczna libpcd
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
@@ -90,6 +116,9 @@ Requires:	libpcd-devel = %{version}
 
 %description -n libpcd-static
 Static version of libpcd.
+
+%description -n libpcd-static -l pl
+Statyczna wersja biblioteki libpcd.
 
 %prep
 %setup -q
@@ -131,6 +160,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/pcdtoppm
 %{_xmandir}/man1/xpcd.1*
 %{_mandir}/man1/pcdtoppm.1*
+%dir %{_xprefix}/lib/X11/xpcd
 %{_xprefix}/lib/X11/xpcd/system.xpcdrc
 %{_xprefix}/lib/X11/app-defaults/Xpcd-2
 %lang(de) %{_xprefix}/lib/X11/de/app-defaults/Xpcd-2
