@@ -1,29 +1,36 @@
+#
+# Conditional build:
+# _without_gimp	- without xpcd-gate plugin (not ready for gimp 1.3)
+#
 Summary:	PhotoCD tool collection
 Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
 Name:		xpcd
 Version:	2.08
-Release:	7
+Release:	8
 License:	GPL
 Group:		X11/Applications/Graphics
-Source0:	http://www.in-berlin.de/User/kraxel/dl/%{name}-%{version}.tar.gz
+Source0:	http://bytesex.org/misc/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-gimp.patch
 Patch1:		%{name}-FHS.patch
-Patch2:		%{name}-shared.patch
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+URL:		http://bytesex.org/xpcd.html
+BuildRequires:	Xaw3d-devel >= 1.3E
 BuildRequires:	autoconf
-BuildRequires:	libtool
+%{!?_without_gimp:BuildRequires:	gimp-devel >= 0.99}
+%{!?_without_gimp:BuildRequires:	gimp-devel < 1.3}
 BuildRequires:	libjpeg-devel
+BuildRequires:	libpcd-devel >= 1.0
 BuildRequires:	libtiff-devel
+BuildRequires:	libtool
 %ifarch %{ix86} alpha
 BuildRequires:	svgalib-devel
 %endif
-BuildRequires:	Xaw3d-devel
-BuildRequires:	gimp-devel >= 0.99
-Requires:	libpcd = %{version}
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%if 0%{!?_without_gimp:1}
 %define		gimpplugindir	%(gimp-config --gimpplugindir)/plug-ins
+%endif
 # X11 resources must be installed with X11R6 prefix
 %define		_xprefix	/usr/X11R6
 
@@ -42,7 +49,6 @@ pcdtoppm jest konwerterem na ppm i jpg dzia³aj±cym z linii poleceñ.
 Summary:	svgalib viewer for PhotoCD images
 Summary(pl):	Przegl±darka PhotoCD korzystaj±ca z svgalib
 Group:		Applications/Graphics
-Requires:	libpcd = %{version}
 
 %description svga
 svgalib viewer for PhotoCD images.
@@ -54,8 +60,7 @@ Przegl±darka obrazków PhotoCD korzystaj±ca z svgalib.
 Summary:	GIMP plugin, makes xpcd and gimp work hand in hand
 Summary(pl):	Wtyczka do GIMP-a dodaj±ca obs³ugê xpcd
 Group:		X11/Applications/Graphics
-Requires:	xpcd = %{version}
-Requires:	libpcd = %{version}
+Requires:	%{name} = %{version}
 
 %description gimp
 This is a GIMP 0.99 plugin, it allows xpcd to load images directly
@@ -67,46 +72,10 @@ Wtyczka do GIMP-a >= 0.99, pozwalaj±ca wczytywaæ obrazki PhotoCD
 bezpo¶rednio do GIMP-a. Otworzenie GIMP-em pliku PhotoCD spowoduje
 przekazanie go do xpcd.
 
-%package -n libpcd
-Summary:	PhotoCD shared library
-Summary(pl):	Biblioteka dzielona do obs³ugi PhotoCD
-Group:		Libraries
-
-%description -n libpcd
-This is PhotoCD shared library.
-
-%description -n libpcd -l pl
-Biblioteka dzielona do obs³ugi PhotoCD.
-
-%package -n libpcd-devel
-Summary:	libpcd header files
-Summary(pl):	Pliki nag³ówkowe do libpcd
-Group:		Development/Libraries
-Requires:	libpcd = %{version}
-
-%description -n libpcd-devel
-libpcd header file.
-
-%description -n libpcd-devel -l pl
-Pliki nag³ówkowe do biblioteki libpcd.
-
-%package -n libpcd-static
-Summary:	libpcd static library
-Summary(pl):	Biblioteka statyczna libpcd
-Group:		Development/Libraries
-Requires:	libpcd-devel = %{version}
-
-%description -n libpcd-static
-Static version of libpcd.
-
-%description -n libpcd-static -l pl
-Statyczna wersja biblioteki libpcd.
-
 %prep
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__autoconf}
@@ -116,23 +85,23 @@ CFLAGS="%{rpmcflags} -DGIMP_ENABLE_COMPAT_CRUFT"
 	    --without-svga
 %endif
 
-%{__make}
+%{__make} \
+	SUBDIRS="xpcd test"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_applnkdir}/Graphics,%{_pixmapsdir}}
 
-%{__make} DESTDIR=$RPM_BUILD_ROOT SUID_ROOT= install
-%{__make} DESTDIR=$RPM_BUILD_ROOT install-lib -C libpcd
+%{__make} install \
+	SUBDIRS="xpcd test" \
+	DESTDIR=$RPM_BUILD_ROOT \
+	SUID_ROOT=
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Graphics
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post	-n libpcd -p /sbin/ldconfig
-%postun	-n libpcd -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -158,21 +127,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_mandir}/man1/pcdview.1*
 %endif
 
+%if 0%{!?_without_gimp:1}
 %files gimp
 %defattr(644,root,root,755)
 %attr(755,root,root) %{gimpplugindir}/xpcd-gate
-
-%files -n libpcd
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpcd.so.*.*
-
-%files -n libpcd-devel
-%defattr(644,root,root,755)
-%{_libdir}/libpcd.so
-%{_libdir}/libpcd.la
-%attr(644,root,root) %{_includedir}/pcd.h
-%doc libpcd/README.html
-
-%files -n libpcd-static
-%defattr(644,root,root,755)
-%{_libdir}/libpcd.a
+%endif
