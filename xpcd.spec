@@ -10,6 +10,7 @@ Release:	8
 License:	GPL
 Group:		X11/Applications/Graphics
 Source0:	http://bytesex.org/misc/%{name}-%{version}.tar.gz
+# Source0-md5:	23881054e9c469197fc7cc806255754e
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-FHS.patch
