@@ -5,9 +5,6 @@ Version:	2.08
 Release:	4
 License:	GPL
 Group:		X11/Applications/Graphics
-Group(de):	X11/Applikationen/Grafik
-Group(pl):	X11/Aplikacje/Grafika
-Group(pt):	X11/Aplicações/Gráficos
 Source0:	http://www.in-berlin.de/User/kraxel/dl/%{name}-%{version}.tar.gz
 Patch0:		%{name}-gimp.patch
 Patch1:		%{name}-FHS.patch
@@ -48,9 +45,6 @@ pcdtoppm jest konwerterem na ppm i jpg dzia³aj±cym z linii poleceñ.
 Summary:	svgalib viewer for PhotoCD images
 Summary(pl):	Przegl±darka PhotoCD korzystaj±ca z svgalib
 Group:		Applications/Graphics
-Group(de):	Applikationen/Grafik
-Group(pl):	Aplikacje/Grafika
-Group(pt):	Aplicações/Gráficos
 Requires:	libpcd = %{version}
 
 %description svga
@@ -65,9 +59,6 @@ Przegl±darka obrazków PhotoCD korzystaj±ca z svgalib.
 Summary:	GIMP plugin, makes xpcd and gimp work hand in hand.
 Summary(pl):	Wtyczka do GIMP-a dodaj±ca obs³ugê xpcd.
 Group:		X11/Applications/Graphics
-Group(de):	X11/Applikationen/Grafik
-Group(pl):	X11/Aplikacje/Grafika
-Group(pt):	X11/Aplicações/Gráficos
 Requires:	xpcd = %{version}
 Requires:	libpcd = %{version}
 
@@ -85,13 +76,6 @@ przekazanie go do xpcd.
 Summary:	PhotoCD shared library
 Summary(pl):	Biblioteka dzielona do obs³ugi PhotoCD
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	âÉÂÌÉÏÔÅËÉ
-Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
 
 %description -n libpcd
 This is PhotoCD shared library.
@@ -103,13 +87,6 @@ Biblioteka dzielona do obs³ugi PhotoCD.
 Summary:	libpcd header files
 Summary(pl):	Pliki nag³ówkowe do libpcd
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
-Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	libpcd = %{version}
 
 %description -n libpcd-devel
@@ -122,13 +99,6 @@ Pliki nag³ówkowe do biblioteki libpcd.
 Summary:	libpcd static library
 Summary(pl):	Biblioteka statyczna libpcd
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
-Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	libpcd-devel = %{version}
 
 %description -n libpcd-static
