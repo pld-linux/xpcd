@@ -177,7 +177,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n libpcd-devel
 %defattr(644,root,root,755)
 %{_libdir}/libpcd.so
-%attr(755,root,root) %{_libdir}/libpcd.la
+%{_libdir}/libpcd.la
 %attr(644,root,root) %{_includedir}/pcd.h
 %doc libpcd/README.html
 
