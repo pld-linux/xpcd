@@ -6,7 +6,7 @@ Summary:	PhotoCD tool collection
 Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
 Name:		xpcd
 Version:	2.08
-Release:	8
+Release:	9
 License:	GPL
 Group:		X11/Applications/Graphics
 Source0:	http://bytesex.org/misc/%{name}-%{version}.tar.gz
@@ -22,7 +22,7 @@ BuildRequires:	Xaw3d-devel >= 1.3E
 BuildRequires:	autoconf
 %{!?_without_gimp:BuildRequires:	gimp-devel >= 1.2}
 BuildRequires:	libjpeg-devel
-BuildRequires:	libpcd-devel >= 1.0
+BuildRequires:	libpcd-devel >= 1.0.1
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 %ifarch %{ix86} alpha
@@ -31,7 +31,7 @@ BuildRequires:	svgalib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %if 0%{!?_without_gimp:1}
-%define		gimpplugindir	%(gimp-config --gimpplugindir)/plug-ins
+%define		gimpplugindir	%(gimptool --gimpplugindir)/plug-ins
 %endif
 # X11 resources must be installed with X11R6 prefix
 %define		_xprefix	/usr/X11R6

@@ -7,7 +7,7 @@
 -  AC_CHECK_LIB(gimp, gimp_image_new,,,-lglib)
 -  if test "$LIBS" != ""; then
 -    LIBGIMP99="$LIBS -lglib"; LIBS=""
-+  AC_CHECK_PROGS(GIMPCONFIG, [gimp-config gimp-config-1.4 gimp-config-1.3 gimp-config-1.2], NONE)
++  AC_CHECK_PROGS(GIMPCONFIG, [gimptool gimp-config gimptool-2.0 gimptool-1.3 gimp-config-1.2], NONE)
 +  if test "$GIMPCONFIG" != "NONE"; then
      XPCD_PROGS="$XPCD_PROGS xpcd-gate";
 -    GIMP_PLUGIN_DIR=""
@@ -17,7 +17,7 @@
 -	break
 -      fi
 -    done
-+    GIMP_PLUGIN_DIR="`gimp-config --gimpplugindir`/plug-ins"
++    GIMP_PLUGIN_DIR="`$GIMPCONFIG --gimpplugindir`/plug-ins"
    fi
  fi
  
@@ -28,11 +28,11 @@
  
  xpcd-gate.o: xpcd-gate.c
 -	$(CC) $(CFLAGS) `gtk-config --cflags` -c -o $@ $<
-+	$(CC) $(CFLAGS) `gimp-config --cflags` -c -o $@ $<
++	$(CC) $(CFLAGS) `gimptool --cflags` -c -o $@ $<
  
  xpcd-gate: xpcd-gate.o ipc.o
 -	$(CC) $(LDFLAGS) -o $@ $^ @LIBGIMP99@ $(LDLIBS)
-+	$(CC) $(LDFLAGS) -o $@ $^ `gimp-config --libs` $(LDLIBS)
++	$(CC) $(LDFLAGS) -o $@ $^ `gimptool --libs` $(LDLIBS)
  
  #-------------------------------------------------------------------------
  # DO NOT DELETE THIS LINE -- make depend depends on it.
