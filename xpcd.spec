@@ -14,7 +14,7 @@ BuildRequires:	autoconf
 BuildRequires:	libtool
 BuildRequires:	libjpeg-devel
 BuildRequires:	libtiff-devel
-%ifarch %{ix86}
+%ifarch %{ix86} alpha ppc
 BuildRequires:	svgalib-devel
 %endif
 BuildRequires:	Xaw3d-devel
@@ -39,7 +39,7 @@ Zestaw narzêdzi do obróbki formatu PhotoCD. G³ówna aplikacja (xpcd)
 jest programem pod X do dekodowania i ogl±dania obrazków PhotoCD.
 pcdtoppm jest konwerterem na ppm i jpg dzia³aj±cym z linii poleceñ.
 
-%ifarch %{ix86}
+%ifarch %{ix86} alpha ppc
 
 %package svga
 Summary:	svgalib viewer for PhotoCD images
@@ -152,7 +152,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_xprefix}/include/X11/pixmaps/xpcd-gray.xpm
 %doc *.gz
 
-%ifarch %ix86
+%ifarch %ix86 alpha ppc
 %files svga
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pcdview
