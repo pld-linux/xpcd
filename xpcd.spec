@@ -23,12 +23,9 @@ BuildRequires:	Xaw3d-devel
 BuildRequires:	gimp-devel >= 0.99
 Requires:	libpcd = %{version}
 
+%define		gimpplugindir	%(gimp-config --gimpplugindir)/plug-ins
+# X11 resources must be installed with X11R6 prefix
 %define		_xprefix	/usr/X11R6
-%define		_xbindir	%{_xprefix}/bin
-%define		_xlibdir	%{_xprefix}/lib
-%define		_xmandir	%{_xprefix}/man
-
-%define		_prefix		/usr
 
 %description
 This is a PhotoCD tool collection. The main application - xpcd - is a
@@ -123,15 +120,10 @@ CFLAGS="%{rpmcflags} -DGIMP_ENABLE_COMPAT_CRUFT"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_xbindir},%{_xmandir}/man1} \
-	$RPM_BUILD_ROOT{%{_applnkdir}/Graphics,%{_pixmapsdir}}
+install -d $RPM_BUILD_ROOT{%{_applnkdir}/Graphics,%{_pixmapsdir}}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT SUID_ROOT= install
 %{__make} DESTDIR=$RPM_BUILD_ROOT install-lib -C libpcd
-
-# move X stuff to _x*dir
-mv -f $RPM_BUILD_ROOT%{_mandir}/man1/xpcd.1 $RPM_BUILD_ROOT%{_xmandir}/man1
-mv -f $RPM_BUILD_ROOT%{_bindir}/xpcd $RPM_BUILD_ROOT%{_xbindir}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Graphics
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
@@ -145,12 +137,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README bench
-%attr(755,root,root) %{_xbindir}/xpcd
 %attr(755,root,root) %{_bindir}/pcdtoppm
+%attr(755,root,root) %{_bindir}/xpcd
 %{_applnkdir}/Graphics/*
 %{_pixmapsdir}/*
-%{_xmandir}/man1/xpcd.1*
 %{_mandir}/man1/pcdtoppm.1*
+%{_mandir}/man1/xpcd.1*
 %dir %{_xprefix}/lib/X11/xpcd
 %{_xprefix}/lib/X11/xpcd/system.xpcdrc
 %{_xprefix}/lib/X11/app-defaults/Xpcd-2
@@ -168,7 +160,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gimp
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_xprefix}/lib/gimp/*/plug-ins/xpcd-gate
+%attr(755,root,root) %{gimpplugindir}/xpcd-gate
 
 %files -n libpcd
 %defattr(644,root,root,755)
