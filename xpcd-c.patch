@@ -1,0 +1,19 @@
+--- xpcd-2.09/xpcd/shmalloc.c.orig	1998-09-27 09:34:16.000000000 +0200
++++ xpcd-2.09/xpcd/shmalloc.c	2006-10-18 00:37:22.776749000 +0200
+@@ -89,11 +89,12 @@
+ sh_free(void *data)
+ {
+     int             size;
++    int            *datap = data;
+ 
+     if (shared_anonymous_mmap_works) {
+-	((int *) data)--;
+-	size = *(int *) data;
+-	munmap(data, size);
++	datap--;
++	size = *datap;
++	munmap(datap, size);
+     } else
+-	shmdt(data);
++	shmdt(datap);
+ }
