@@ -14,7 +14,7 @@ diff -Nur xpcd-2.09.orig/Make.config.in xpcd-2.09/Make.config.in
 -x11_incdir=$(DESTDIR)@x_includes@/X11
 +datadir=$(prefix)/share
 +pixmapsdir=$(DESTDIR)/usr/share/pixmaps
-+appdefsdir=$(DESTDIR)/usr/X11R6/lib/X11/app-defaults
++xdatadir=$(DESTDIR)/usr/share/X11
  gimpplugindir=$(DESTDIR)@GIMP_PLUGIN_DIR@
  
  CC=@CC@
@@ -38,7 +38,7 @@ diff -Nur xpcd-2.09.orig/xpcd/Makefile.in xpcd-2.09/xpcd/Makefile.in
 -	$(MKDIR) $(x11_libdir)/app-defaults
 -	$(MKDIR) $(x11_incdir)/pixmaps
 +	$(MKDIR) $(datadir)/xpcd
-+	$(MKDIR) $(appdefsdir)
++	$(MKDIR) $(xdatadir)/app-defaults
 +	$(MKDIR) $(pixmapsdir)
  	$(INSTALL_PROGRAM) xpcd $(bindir)/xpcd
  	$(INSTALL_DATA) $(srcdir)/xpcd.man $(mandir)/man1/xpcd.1
@@ -52,13 +52,13 @@ diff -Nur xpcd-2.09.orig/xpcd/Makefile.in xpcd-2.09/xpcd/Makefile.in
 +		$(pixmapsdir)/xpcd-gray.xpm
  	$(INSTALL_DATA) Xpcd-2.ad					\
 -		$(x11_libdir)/app-defaults/Xpcd-2
-+		$(appdefsdir)/Xpcd-2
++		$(xdatadir)/app-defaults/Xpcd-2
  	for lang in $(XPCD_LANG); do					\
 -		$(MKDIR) $(x11_libdir)/$$lang/app-defaults;		\
-+		$(MKDIR) $(appdefsdir)/$$lang;		\
++		$(MKDIR) $(xdatadir)/$$lang/app-defaults;		\
  		$(INSTALL_DATA) Xpcd-2.$$lang.ad			\
 -			$(x11_libdir)/$$lang/app-defaults/Xpcd-2;	\
-+			$(appdefsdir)/$$lang/Xpcd-2;	\
++			$(xdatadir)/$$lang/app-defaults/Xpcd-2;	\
  	done
  	test -f xpcd-gate &&						\
  		$(MKDIR) $(gimpplugindir) &&				\
