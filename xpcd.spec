@@ -1,13 +1,13 @@
 #
 # Conditional build:
-%bcond_without	gimp	# without xpcd-gate plugin (not ready for gimp 1.3)
+%bcond_with	gimp	# with xpcd-gate plugin (not ready for gimp 2.0)
 %bcond_without	svga	# don't build svgalib viewer
 #
 Summary:	PhotoCD tool collection
 Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
 Name:		xpcd
 Version:	2.09
-Release:	4
+Release:	5
 License:	GPL
 Group:		X11/Applications/Graphics
 Source0:	http://dl.bytesex.org/releases/xpcd/%{name}-%{version}.tar.gz
@@ -16,6 +16,7 @@ Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-dirs.patch
 Patch1:		%{name}-gimp.patch
+Patch2:		%{name}-c.patch
 URL:		http://linux.bytesex.org/fbida/xpcd.html
 BuildRequires:	Xaw3d-devel >= 1.3E
 BuildRequires:	autoconf
@@ -25,12 +26,14 @@ BuildRequires:	libpcd-devel >= 1:1.0.1
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 %{?with_svga:BuildRequires:	svgalib-devel}
+BuildRequires:	xorg-lib-libXext-devel
+Requires:	xorg-lib-libXt >= 1.0.0
+%{!?with_gimp:Obsoletes:	xpcd-gimp}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %if %{with gimp}
 %define		gimpplugindir	%(gimptool --gimpplugindir)/plug-ins
 %endif
-%define		_appdefsdir	/usr/X11R6/lib/X11/app-defaults
 
 %description
 This is a PhotoCD tool collection. The main application - xpcd - is a
@@ -74,6 +77,7 @@ do xpcd.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__autoconf}
@@ -104,9 +108,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/pcdtoppm
 %attr(755,root,root) %{_bindir}/xpcd
 %{_datadir}/xpcd
-%{_appdefsdir}/Xpcd-2
-%lang(da) %{_appdefsdir}/da/Xpcd-2
-%lang(de) %{_appdefsdir}/de/Xpcd-2
+%{_datadir}/X11/app-defaults/Xpcd-2
+%lang(da) %{_datadir}/X11/da/app-defaults/Xpcd-2
+%lang(de) %{_datadir}/X11/de/app-defaults/Xpcd-2
 %{_desktopdir}/*.desktop
 %{_pixmapsdir}/*.png
 %{_pixmapsdir}/*.xpm
