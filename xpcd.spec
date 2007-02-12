@@ -4,7 +4,7 @@
 %bcond_without	svga	# don't build svgalib viewer
 #
 Summary:	PhotoCD tool collection
-Summary(pl):	Narzêdzia do obs³ugi formatu PhotoCD
+Summary(pl.UTF-8):   NarzÄ™dzia do obsÅ‚ugi formatu PhotoCD
 Name:		xpcd
 Version:	2.09
 Release:	5
@@ -41,25 +41,25 @@ comfortable, X11-based PhotoCD decoding/viewing program. Also included
 is pcdtoppm, this is a command line based PhotoCD-to-PPM/JPEG
 converter.
 
-%description -l pl
-Zestaw narzêdzi do obróbki formatu PhotoCD. G³ówna aplikacja (xpcd)
-jest programem pod X do dekodowania i ogl±dania obrazków PhotoCD.
-pcdtoppm jest konwerterem na ppm i jpg dzia³aj±cym z linii poleceñ.
+%description -l pl.UTF-8
+Zestaw narzÄ™dzi do obrÃ³bki formatu PhotoCD. GÅ‚Ã³wna aplikacja (xpcd)
+jest programem pod X do dekodowania i oglÄ…dania obrazkÃ³w PhotoCD.
+pcdtoppm jest konwerterem na ppm i jpg dziaÅ‚ajÄ…cym z linii poleceÅ„.
 
 %package svga
 Summary:	svgalib viewer for PhotoCD images
-Summary(pl):	Przegl±darka PhotoCD korzystaj±ca z svgalib
+Summary(pl.UTF-8):   PrzeglÄ…darka PhotoCD korzystajÄ…ca z svgalib
 Group:		Applications/Graphics
 
 %description svga
 svgalib viewer for PhotoCD images.
 
-%description svga -l pl
-Przegl±darka obrazków PhotoCD korzystaj±ca z svgalib.
+%description svga -l pl.UTF-8
+PrzeglÄ…darka obrazkÃ³w PhotoCD korzystajÄ…ca z svgalib.
 
 %package gimp
 Summary:	GIMP plugin, makes xpcd and gimp work hand in hand
-Summary(pl):	Wtyczka do GIMP-a dodaj±ca obs³ugê xpcd
+Summary(pl.UTF-8):   Wtyczka do GIMP-a dodajÄ…ca obsÅ‚ugÄ™ xpcd
 Group:		X11/Applications/Graphics
 Requires:	%{name} = %{version}-%{release}
 
@@ -68,8 +68,8 @@ This is a GIMP plugin which allows xpcd to load images directly into
 The GIMP. If you'll open a PhotoCD file within gimp, it will be passed
 to xpcd.
 
-%description gimp -l pl
-Wtyczka do GIMP-a, pozwalaj±ca wczytywaæ obrazki PhotoCD bezpo¶rednio
+%description gimp -l pl.UTF-8
+Wtyczka do GIMP-a, pozwalajÄ…ca wczytywaÄ‡ obrazki PhotoCD bezpoÅ›rednio
 do GIMP-a. Otworzenie GIMP-em pliku PhotoCD spowoduje przekazanie go
 do xpcd.
 
