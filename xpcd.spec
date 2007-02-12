@@ -4,7 +4,7 @@
 %bcond_without	svga	# don't build svgalib viewer
 #
 Summary:	PhotoCD tool collection
-Summary(pl.UTF-8):   Narzędzia do obsługi formatu PhotoCD
+Summary(pl.UTF-8):	Narzędzia do obsługi formatu PhotoCD
 Name:		xpcd
 Version:	2.09
 Release:	5
@@ -48,7 +48,7 @@ pcdtoppm jest konwerterem na ppm i jpg działającym z linii poleceń.
 
 %package svga
 Summary:	svgalib viewer for PhotoCD images
-Summary(pl.UTF-8):   Przeglądarka PhotoCD korzystająca z svgalib
+Summary(pl.UTF-8):	Przeglądarka PhotoCD korzystająca z svgalib
 Group:		Applications/Graphics
 
 %description svga
@@ -59,7 +59,7 @@ Przeglądarka obrazków PhotoCD korzystająca z svgalib.
 
 %package gimp
 Summary:	GIMP plugin, makes xpcd and gimp work hand in hand
-Summary(pl.UTF-8):   Wtyczka do GIMP-a dodająca obsługę xpcd
+Summary(pl.UTF-8):	Wtyczka do GIMP-a dodająca obsługę xpcd
 Group:		X11/Applications/Graphics
 Requires:	%{name} = %{version}-%{release}
 
