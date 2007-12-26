@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=Xpcd
 Name[eo]=X-Fotodisko
 Comment=PhotoCD tools
@@ -49,7 +48,7 @@ Comment[zh_TW]=PhotoCD 工具組
 Comment[zu]=Amathuluzi ezithombe ze CD
 Exec=xpcd
 Terminal=false
-Icon=xpcd.png
+Icon=xpcd
 Type=Application
 Categories=Graphics;Viewer;
 # vi: encoding=utf-8
